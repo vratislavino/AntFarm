@@ -9,15 +9,17 @@ public class AntDetection : MonoBehaviour
     public Transform Detector;
 
     private AntStatus antStatus;
-    private AntDirection[] directions = new AntDirection[15];
+    private AntDirection[] directions = new AntDirection[5];
 
-    private const int range = 240;
+    private const float neededDistance = 1f;
+
+    private const int range = 180;
 
     Dictionary<string, int> costs = new Dictionary<string, int>()
     {
-        { "Wall", -10 },
-        { "Target", 10 },
-        { "TargetPheromone", 6 }
+        { "Wall", -100 },
+        { "Target", 100 },
+        { "TargetPheromone", 1 }
     };
     
 
@@ -57,27 +59,47 @@ public class AntDetection : MonoBehaviour
     {
         for(int i = 0; i < directions.Length; i++)
         {
-            Vector3 v = Quaternion.AngleAxis(directions[i].Angle, Vector3.up) * Vector3.forward;
+            Vector3 v = (Quaternion.AngleAxis(directions[i].Angle, Vector3.up)*transform.rotation) * Vector3.forward;
             
-            RaycastHit hit;
-            if(Physics.Raycast(Detector.position, v, out hit, 2))
-            {
-                var tag = hit.collider.tag;
-                Debug.DrawRay(Detector.position, v * 2, Color.red, 0.1f);
+            var all = Physics.RaycastAll(Detector.position, v, 8);
 
-                if(costs.ContainsKey(tag))
+            if(all != null && all.Length > 0)
+            {
+                int cost = 0;
+                foreach (RaycastHit hit in all)
                 {
-                    directions[i].Rating = costs[tag];
-                } else
-                {   
-                    if(tag.Contains(antStatus.Target))
+                    var tag = hit.collider.tag;
+
+                    if (costs.ContainsKey(tag))
                     {
-                        directions[i].Rating = costs[tag.Replace(antStatus.Target, "Target")];
-                    } else
+                        cost += costs[tag];
+                        //directions[i].Rating = costs[tag];
+                        //Debug.DrawRay(Detector.position, v * 8, Color.red, 0.1f);
+                    }
+                    else
                     {
-                        directions[i].Rating = 0;
+                        if (tag.Contains(antStatus.Target))
+                        {
+                            // directions[i].Rating = costs[tag.Replace(antStatus.Target, "Target")];
+                            cost += costs[tag.Replace(antStatus.Target, "Target")];
+                            if (costs[tag.Replace(antStatus.Target, "Target")] == 100)
+                            {
+                                if (Vector3.Distance(transform.position, hit.point) < neededDistance)
+                                {
+                                    antStatus.SwitchState();
+                                    hit.collider.GetComponentInParent<Target>().Use();
+                                }
+                            }
+                            //Debug.DrawRay(Detector.position, v * 8, Color.green, 0.1f);
+                        }
+                        else
+                        {
+                            cost += 0;
+                            //directions[i].Rating = 0;
+                        }
                     }
                 }
+                directions[i].Rating = cost;
             } else
             {
                 directions[i].Rating = 0;

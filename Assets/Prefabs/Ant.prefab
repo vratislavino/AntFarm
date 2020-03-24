@@ -1490,6 +1490,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4796881434435171673}
   - component: {fileID: 4796881434435171672}
+  - component: {fileID: 203361864}
+  - component: {fileID: 203361865}
+  - component: {fileID: 203361866}
   m_Layer: 0
   m_Name: Ant
   m_TagString: Untagged
@@ -1539,6 +1542,49 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &203361864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4796881434435171670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1a03cf3efca7c54293ac6a75cea4c52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+--- !u!114 &203361865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4796881434435171670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f07973712385de44ea14e2bfe6578540, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimeToNextPher: 1
+  FoodPheromonePrefab: {fileID: 8829929544453655102, guid: c44997a8495e5124498e0d7b3b35954f,
+    type: 3}
+  HivePheromonePrefab: {fileID: 4160959989157639075, guid: 2d5039ba3cb3589408bb7603645bb107,
+    type: 3}
+--- !u!114 &203361866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4796881434435171670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ed5d8c1f4fe9aa4180a1ca400a1e209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Detector: {fileID: 3543470898029435415}
 --- !u!1 &4796881434508761897
 GameObject:
   m_ObjectHideFlags: 0

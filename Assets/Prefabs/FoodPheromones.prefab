@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4160959989157639087}
   m_Layer: 0
   m_Name: FoodPheromones
-  m_TagString: Untagged
+  m_TagString: FoodPheromone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
